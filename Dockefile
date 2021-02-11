@@ -1,0 +1,8 @@
+FROM node:slim
+
+COPY . .
+
+RUN yarn
+RUN yarn global add @taplo/cli
+
+ENTRYPOINT ["node", "/dist/index.js"]

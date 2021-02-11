@@ -1,0 +1,22 @@
+name: "TOML linter"
+description: "Lint all your TOML files"
+author: "yisonPylkita"
+# branding:
+#   icon: "file"
+#   color: "blue"
+# inputs:
+#   file:
+#     description: "The relative path of toml file"
+#     required: true
+#   key:
+#     description: "Key need to modify"
+#     required: true
+#   value:
+#     description: "Value to set"
+#     required: true
+
+runs:
+  # using: "docker"
+  # image: "Dockerfile"
+  using: "node12"
+  main: "dist/index.js"
