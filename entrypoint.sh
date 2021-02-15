@@ -2,9 +2,8 @@
 
 status_code="0"
 
-scan_file() {
+check_file() {
     local file_path=$1
-    echo "Checking $file_path"
     cp "$file_path" "$file_path.original"
     ./taplo_bin/taplo format "$file_path" >/dev/null
     diff "$file_path" "$file_path.original"
@@ -15,15 +14,15 @@ scan_file() {
     fi
 }
 
-scan_all() {
+check_all() {
     echo "Scanning all the TOML files at $1"
 
     while IFS= read -r current_file; do
-        echo "Scan file $current_file"
-        scan_file "$current_file"
+        echo "Check file $current_file"
+        check_file "$current_file"
     done < <(find . -name '*.toml' -type f)
 }
 
 # To avoid execution when sourcing this script for testing
-[ "$0" = "${BASH_SOURCE[0]}" ] && scan_all "$@"
+[ "$0" = "${BASH_SOURCE[0]}" ] && check_all "$@"
 exit $status_code
