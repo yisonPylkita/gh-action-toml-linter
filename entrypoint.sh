@@ -16,10 +16,10 @@ scan_file() {
     diff "$file_path" "$file_path.original"
     local exit_code=$?
     if [ $exit_code -eq 0 ]; then
-        printf "%b" "Successfully scanned ${file_path} 🙌\n"
+        printf "%b" "Successfully scanned ${file_path}\n"
     else
         status_code=$exit_code
-        printf "\e[31m ERROR: taplo detected issues in %s.\e[0m\n" "${file_path} 🐛"
+        printf "\e[31m ERROR: taplo detected issues in %s.\e[0m\n" "${file_path}"
     fi
 }
 
@@ -32,9 +32,6 @@ scan_all() {
     done < <(find . -name '*.toml' -type f)
 }
 
-echo "I'm in shell script babe"
 # To avoid execution when sourcing this script for testing
 [ "$0" = "${BASH_SOURCE[0]}" ] && scan_all "$@"
-
-# find . -name "*.toml" -exec taplo format {} \;
-# {  ; } || { echo "::error file={name},line={line},col={col}::{TOML lints failed}"; }
+echo "$status_code"

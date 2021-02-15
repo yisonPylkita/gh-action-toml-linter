@@ -2,6 +2,6 @@ FROM alpine:3.13.1 as base
 
 WORKDIR /opt
 COPY . .
-RUN apk add --no-cache bash git
+RUN apk add --no-cache bash
 
-ENTRYPOINT bash /opt/entrypoint.sh
+ENTRYPOINT /opt/entrypoint.sh

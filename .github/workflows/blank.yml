@@ -17,5 +17,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run tests
-        run: |
-          bash ./entrypoint.sh
+        run: ./entrypoint.sh
