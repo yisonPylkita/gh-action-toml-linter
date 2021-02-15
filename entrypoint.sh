@@ -5,7 +5,7 @@ status_code="0"
 check_file() {
     local file_path=$1
     cp "$file_path" "$file_path.original"
-    ./taplo_bin/taplo format "$file_path" >/dev/null
+    ./taplo format "$file_path" >/dev/null
     diff "$file_path" "$file_path.original"
     local exit_code=$?
     if [ $exit_code -ne 0 ]; then
@@ -23,6 +23,11 @@ check_all() {
     done < <(find . -name '*.toml' -type f)
 }
 
+download_taplo() {
+    wget -q https://raw.githubusercontent.com/yisonPylkita/gh-action-toml-linter/main/taplo_bin/taplo
+    chmod +x ./taplo
+}
+
 # To avoid execution when sourcing this script for testing
-[ "$0" = "${BASH_SOURCE[0]}" ] && check_all "$@"
+[ "$0" = "${BASH_SOURCE[0]}" ] && download_taplo && check_all "$@"
 exit $status_code
