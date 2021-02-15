@@ -1,30 +1,22 @@
 #!/bin/bash
 
-input_paths="$1"
-my_dir=$(pwd)
 status_code="0"
 
 scan_file() {
     local file_path=$1
-    local file=$(basename -- "$file_path")
-    echo
-    echo "###############################################"
-    echo "         Scanning $file"
-    echo "###############################################"
+    echo "Checking $file_path"
     cp "$file_path" "$file_path.original"
-    ./taplo_bin/taplo format "$file_path"
+    ./taplo_bin/taplo format "$file_path" >/dev/null
     diff "$file_path" "$file_path.original"
     local exit_code=$?
-    if [ $exit_code -eq 0 ]; then
-        printf "%b" "Successfully scanned ${file_path}\n"
-    else
+    if [ $exit_code -ne 0 ]; then
         status_code=$exit_code
         echo "::error file={$file_path},line={line},col={col}::{TOML file not formatted}"
     fi
 }
 
 scan_all() {
-    echo "Scanning all the TOML files at $1 🔎"
+    echo "Scanning all the TOML files at $1"
 
     while IFS= read -r current_file; do
         echo "Scan file $current_file"
