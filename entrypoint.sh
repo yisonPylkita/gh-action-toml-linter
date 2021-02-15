@@ -20,6 +20,7 @@ scan_file() {
     else
         status_code=$exit_code
         printf "\e[31m ERROR: taplo detected issues in %s.\e[0m\n" "${file_path}"
+        echo "::error file={$file},line={line},col={col}::{TOML file not formatted}"
     fi
 }
 
@@ -34,4 +35,4 @@ scan_all() {
 
 # To avoid execution when sourcing this script for testing
 [ "$0" = "${BASH_SOURCE[0]}" ] && scan_all "$@"
-echo "$status_code"
+return $status_code
