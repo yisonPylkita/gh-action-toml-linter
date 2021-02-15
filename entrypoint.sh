@@ -12,7 +12,6 @@ process_input() {
 scan_file() {
     local file_path=$1
     local file=$(basename -- "$file_path")
-    local first_line=$(head -n 1 "$file_path")
     echo
     echo "###############################################"
     echo "         Scanning $file"
@@ -26,16 +25,19 @@ scan_file() {
         status_code=$exit_code
         printf "\e[31m ERROR: taplo detected issues in %s.\e[0m\n" "${file_path} 🐛"
     fi
+    git checkout -- .
 }
 
 scan_all() {
     echo "Scanning all the TOML files at $1 🔎"
 
-    while IFS= read -r script; do
-        scan_file "$script"
-    done < <(find "$1" -name '*.toml' -o ! -name '*.*' -type f ! -path "$1/.git/*")
+    while IFS= read -r current_file; do
+        echo "Scan file $current_file"
+        scan_file "$current_file"
+    done < <(find "$1" -name '*.toml' -type f)
 }
 
+echo "I'm in shell script babe"
 # To avoid execution when sourcing this script for testing
 [ "$0" = "${BASH_SOURCE[0]}" ] && process_input "$@"
 
