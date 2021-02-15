@@ -17,5 +17,5 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run tests
-        run: wget -q https://raw.githubusercontent.com/yisonPylkita/gh-action-toml-linter/master/taplo_bin/taplo && bash ./entrypoint.sh
+        run: sudo wget -P /usr/bin/local https://raw.githubusercontent.com/yisonPylkita/gh-action-toml-linter/master/taplo_bin/taplo && bash ./entrypoint.sh
         shell: bash
