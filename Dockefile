@@ -1,8 +1,6 @@
-FROM node:slim
+FROM alpine:3.13.1 as base
 
-COPY . .
+RUN wget -P /usr/local/bin https://raw.githubusercontent.com/yisonPylkita/gh-action-toml-linter/master/taplo_bin/taplo
+COPY entrypoint.sh /entrypoint.sh
 
-RUN yarn
-RUN yarn global add @taplo/cli
-
-ENTRYPOINT ["node", "/dist/index.js"]
+ENTRYPOINT ["/entrypoint.sh"]

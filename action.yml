@@ -1,22 +1,16 @@
 name: "TOML linter"
 description: "Lint all your TOML files"
 author: "yisonPylkita"
-# branding:
-#   icon: "file"
-#   color: "blue"
-# inputs:
-#   file:
-#     description: "The relative path of toml file"
-#     required: true
-#   key:
-#     description: "Key need to modify"
-#     required: true
-#   value:
-#     description: "Value to set"
-#     required: true
-
+inputs:
+  path:
+    description: 'Execute lint check on a specific file or folder.'
+    required: false
+    default: '.'
 runs:
-  # using: "docker"
-  # image: "Dockerfile"
-  using: "node12"
-  main: "dist/index.js"
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.path }}
+branding:
+  icon: 'check-circle'
+  color: 'green'
