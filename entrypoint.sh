@@ -4,11 +4,6 @@ input_paths="$1"
 my_dir=$(pwd)
 status_code="0"
 
-process_input() {
-    scan_all "$my_dir"
-    exit $status_code
-}
-
 scan_file() {
     local file_path=$1
     local file=$(basename -- "$file_path")
@@ -34,12 +29,12 @@ scan_all() {
     while IFS= read -r current_file; do
         echo "Scan file $current_file"
         scan_file "$current_file"
-    done < <(find "$1" -name '*.toml' -type f)
+    done < <(find . -name '*.toml' -type f)
 }
 
 echo "I'm in shell script babe"
 # To avoid execution when sourcing this script for testing
-[ "$0" = "${BASH_SOURCE[0]}" ] && process_input "$@"
+[ "$0" = "${BASH_SOURCE[0]}" ] && scan_all "$@"
 
 # find . -name "*.toml" -exec taplo format {} \;
 # {  ; } || { echo "::error file={name},line={line},col={col}::{TOML lints failed}"; }

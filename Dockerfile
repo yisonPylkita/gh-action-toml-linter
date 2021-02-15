@@ -1,6 +1,7 @@
 FROM alpine:3.13.1 as base
 
-RUN wget -q -P /usr/bin https://raw.githubusercontent.com/yisonPylkita/gh-action-toml-linter/master/taplo_bin/taplo
-COPY entrypoint.sh entrypoint.sh
+WORKDIR /opt
+COPY . .
+RUN apk add --no-cache bash git
 
-CMD ["./entrypoint.sh"]
+ENTRYPOINT bash /opt/entrypoint.sh

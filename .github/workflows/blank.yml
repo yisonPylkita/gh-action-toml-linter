@@ -18,6 +18,4 @@ jobs:
 
       - name: Run tests
         run: |
-          wget -q https://raw.githubusercontent.com/yisonPylkita/gh-action-toml-linter/master/taplo_bin/taplo
           bash ./entrypoint.sh
-        shell: bash
