@@ -11,8 +11,9 @@ scan_file() {
     echo "###############################################"
     echo "         Scanning $file"
     echo "###############################################"
+    cp "$file_path" "$file_path.original"
     ./taplo_bin/taplo format "$file_path"
-    git diff --exit-code
+    diff "$file_path" "$file_path.original"
     local exit_code=$?
     if [ $exit_code -eq 0 ]; then
         printf "%b" "Successfully scanned ${file_path} 🙌\n"
@@ -20,7 +21,6 @@ scan_file() {
         status_code=$exit_code
         printf "\e[31m ERROR: taplo detected issues in %s.\e[0m\n" "${file_path} 🐛"
     fi
-    git checkout -- .
 }
 
 scan_all() {
