@@ -16,7 +16,7 @@ scan_file() {
     echo "###############################################"
     echo "         Scanning $file"
     echo "###############################################"
-    taplo format "$file_path"
+    ./taplo format "$file_path"
     git diff --exit-code
     local exit_code=$?
     if [ $exit_code -eq 0 ]; then
