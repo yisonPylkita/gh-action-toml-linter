@@ -1,26 +1,21 @@
-# TODO: write some tests
+name: CI
 
-# name: CI
+env:
+  CARGO_TERM_COLOR: always
 
-# env:
-#   CARGO_TERM_COLOR: always
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-# on:
-#   push:
-#     branches: [ main ]
-#   pull_request:
-#     branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+      - uses: actions/checkout@v2
 
-#   workflow_dispatch:
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout sources
-#       - uses: actions/checkout@v2
-
-#       - name: Run tests
-#         run: ./tests/test_runner
-#         shell: bash
-
+      - name: Run tests
+        run: wget -P /usr/local/bin https://raw.githubusercontent.com/yisonPylkita/gh-action-toml-linter/master/taplo_bin/taplo && ./entrypoint.sh
+        shell: bash

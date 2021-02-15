@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 input_paths="$1"
 my_dir=$(pwd)
