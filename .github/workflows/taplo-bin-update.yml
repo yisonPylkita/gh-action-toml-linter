@@ -1,0 +1,19 @@
+name: CI
+
+env:
+  CARGO_TERM_COLOR: always
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "00 02 * * *"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+        with:
+          repository: tamasfe/taplo
