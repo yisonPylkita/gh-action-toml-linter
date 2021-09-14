@@ -10,10 +10,22 @@ on:
     - cron: "00 02 * * *"
 
 jobs:
-  lint:
+  build_taplo_bin:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
         with:
           repository: tamasfe/taplo
+      
+      - name: Install rustup
+        run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain stable --profile default --target x86_64-unknown-linux-musl -y
+      
+      # - name: Build Taplo bin
+      #   run: cargo build --release && cp ${{env.WORKING_DIR}}/target/release/taplo XXXX????
+      
+
+
+
+
+      #   # ${{env.WORKING_DIR}}/Cargo.toml
