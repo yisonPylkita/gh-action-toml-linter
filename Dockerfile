@@ -1,4 +1,4 @@
-FROM alpine:3.19 as base
+FROM alpine:3.17 as base
 
 WORKDIR /opt
 COPY . .
