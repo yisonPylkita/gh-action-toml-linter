@@ -4,9 +4,7 @@ status_code="0"
 
 check_file() {
     local file_path=$1
-    cp "$file_path" "$file_path.original"
-    ./taplo format "$file_path" >/dev/null
-    diff "$file_path" "$file_path.original"
+    ./taplo fmt --check "$file_path"
     local exit_code=$?
     if [ $exit_code -ne 0 ]; then
         status_code=$exit_code
