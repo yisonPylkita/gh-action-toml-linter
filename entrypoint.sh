@@ -13,7 +13,7 @@ check_file() {
 }
 
 check_all() {
-    echo "Scanning all the TOML files at $1"
+    echo "Scanning all TOML files at $(pwd)"
 
     while IFS= read -r current_file; do
         echo "Check file $current_file"
@@ -22,8 +22,10 @@ check_all() {
 }
 
 download_taplo() {
-    wget -q https://raw.githubusercontent.com/yisonPylkita/gh-action-toml-linter/main/taplo_bin/taplo
+    wget https://raw.githubusercontent.com/yisonPylkita/gh-action-toml-linter/main/taplo_bin/taplo
     chmod +x ./taplo
+    echo "Downloaded Taplo bin"
+    ls -la
 }
 
 # To avoid execution when sourcing this script for testing
